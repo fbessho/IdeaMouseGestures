@@ -36,7 +36,7 @@
         1.0  - Initial release.
       ]]>
     </change-notes>
-    <version>1.10</version>
+    <version>1.11-alpha</version>
     <depends>com.intellij.modules.lang</depends>
     <vendor email="idea@smardec.com" url="http://www.smardec.com">Smardec</vendor>
     <idea-version since-build="93.13"/>
