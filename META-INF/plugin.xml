@@ -13,6 +13,8 @@
     </description>
     <change-notes>
         <![CDATA[
+        1.11 - Support IDEA v9 or later;<br>
+               Support other IntelliJ platforms (IntelliJ IDEA, RubyMine, WebStorm, PhpStorm, PyCharm and AppCode)<br>
         1.10 - Mouse gesture actions are triggered programmatically;<br>
              - Minor visual improvements.<br>
         1.9  - New editor for mouse gestures action. Now allows to select any action from Idea's main menu;<br>
