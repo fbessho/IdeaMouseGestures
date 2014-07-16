@@ -1,5 +1,5 @@
 <idea-plugin url="http://www.smardec.com/products/idea.html">
-    <name>IdeaMouseGestures - support PyCharm</name>
+    <name>IdeaMouseGestures</name>
     <description>
         <![CDATA[
         IdeaMouseGestures plugin provides easy way to assign Idea's menu items to mouse gestures.
