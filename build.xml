@@ -1,0 +1,60 @@
+<!--
+
+  IdeaMouseGestures ANT build script.
+
+  To build the project you should copy openapi.jar and jdom.jar to the
+  ${IdeaMouseGestures.lib} directory.
+
+-->
+<project name="IdeaMouseGestures" default="jar" basedir=".">
+	<target name="init">
+		<property name="IdeaMouseGestures.src" value="src"/>
+		<property name="IdeaMouseGestures.lib" value="lib"/>
+		<property name="IdeaMouseGestures.build" value="build"/>
+		<property name="IdeaMouseGestures.build.classes" value="build/classes"/>
+		<property name="IdeaMouseGestures.img" value="com/smardec/ideaplugin/ideamousegestures/img"/>
+		<property name="IdeaMouseGestures.lang" value="com/smardec/ideaplugin/ideamousegestures/lang"/>
+		<property name="IdeaMouseGestures.dist" value="dist"/>
+		<property name="IdeaMouseGestures.jar" value="IdeaMouseGestures.jar"/>
+		<property name="IdeaMouseGestures.metainf" value="META-INF"/>
+		<path id="classpath">
+			<pathelement location="${IdeaMouseGestures.lib}/openapi.jar"/>
+			<pathelement location="${IdeaMouseGestures.lib}/jdom.jar"/>
+			<pathelement location="${IdeaMouseGestures.lib}/annotations.jar"/>
+			<pathelement location="${IdeaMouseGestures.build.classes}"/>
+		</path>
+	</target>
+
+	<target name="clean" depends="init">
+		<delete dir="${IdeaMouseGestures.build}"/>
+		<delete dir="${IdeaMouseGestures.dist}"/>
+	</target>
+
+	<target name="prepare" depends="clean">
+		<mkdir dir="${IdeaMouseGestures.build}"/>
+		<mkdir dir="${IdeaMouseGestures.build.classes}"/>
+		<mkdir dir="${IdeaMouseGestures.dist}"/>
+	</target>
+
+	<target name="compile" depends="prepare">
+		<depend srcdir="${IdeaMouseGestures.src}" destdir="${IdeaMouseGestures.build.classes}" closure="yes"/>
+		<javac srcdir="${IdeaMouseGestures.src}" destdir="${IdeaMouseGestures.build.classes}" debug="on">
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+
+	<target name="jar" depends="compile">
+		<copy todir="${IdeaMouseGestures.build.classes}/META-INF">
+			<fileset dir="${IdeaMouseGestures.metainf}"/>
+		</copy>
+		<copy todir="${IdeaMouseGestures.build.classes}/${IdeaMouseGestures.img}">
+			<fileset dir="${IdeaMouseGestures.src}/${IdeaMouseGestures.img}"/>
+		</copy>
+		<copy todir="${IdeaMouseGestures.build.classes}/${IdeaMouseGestures.lang}">
+			<fileset dir="${IdeaMouseGestures.src}/${IdeaMouseGestures.lang}" excludes="**/*.java"/>
+		</copy>
+		<jar jarfile="${IdeaMouseGestures.dist}/${IdeaMouseGestures.jar}">
+			<fileset dir="${IdeaMouseGestures.build.classes}"/>
+		</jar>
+	</target>
+</project>

@@ -1,0 +1,46 @@
+<idea-plugin url="http://www.smardec.com/products/idea.html">
+    <name>IdeaMouseGestures - support PyCharm</name>
+    <description>
+      <![CDATA[
+        IdeaMouseGestures plugin provides easy way to assign Idea's menu items to mouse gestures.
+        Mouse gestures are recognized when the right mouse button is pressed.
+        <br>Plugin contains open source (LGPL) components and documentation to add mouse gestures
+        recognition and processing for any Swing application (<a href="http://www.smardec.com/products/mouse.html">Mouse Gestures library</a>).
+        <br>The plugin is open source (LGPL). The distribution can be found at <a href="http://www.smardec.com/products/idea.html">http://www.smardec.com/products/idea.html</a>.
+        <br>We appreciate any feedback (positive or negative). This helps us to improve the software.
+        <br><br>Special thanks to Pierre Le Lannic
+      ]]>
+    </description>
+    <change-notes>
+      <![CDATA[
+        1.10 - Mouse gesture actions are triggered programmatically;<br>
+             - Minor visual improvements.<br>
+        1.9  - New editor for mouse gestures action. Now allows to select any action from Idea's main menu;<br>
+             - Multilanguage support (french translation);<br>
+             - The movements (L, R, U, D...) can be defined for different languages.<br>
+        1.8  - Visual mouse trail (color and size);<br>
+             - Multilanguage support (english and spanish translations);<br>
+             - Multiproject issues fixed.<br>
+        1.7  - Added diagonal gestures support.<br>
+        1.6  - User friendly and intuitive settings: now you can choose menu items from combo box;<br>
+             - Fixed bug with cancelling settings.<br>
+        1.5  - Minor fixes/changes.<br>
+        1.4  - Blocking text cursor movements by right click, the feature can be disabled.
+               (Idea's default behaviour is to move text cursor on right mouse click.
+               This can be undesirable when using mouse gestures or some items from the popup menu.)<br>
+        1.3  - Mouse gesture's editor can be edited via mouse gestures.<br>
+        1.2  - Improved mouse gestures recognition algorithm.<br>
+        1.1  - Added settings panel to Idea's settings.<br>
+        1.0  - Initial release.
+      ]]>
+    </change-notes>
+    <version>1.10</version>
+    <vendor email="idea@smardec.com" url="http://www.smardec.com">Smardec</vendor>
+    <idea-version since-build="93.13"/>
+    <application-components>
+        <component>
+            <implementation-class>com.smardec.ideaplugin.ideamousegestures.MouseGesturesPlugin</implementation-class>
+            <interface-class>com.smardec.ideaplugin.ideamousegestures.MouseGesturesPlugin</interface-class>
+        </component>
+    </application-components>
+</idea-plugin>
