@@ -1,7 +1,7 @@
 <idea-plugin url="http://www.smardec.com/products/idea.html">
     <name>IdeaMouseGestures - support PyCharm</name>
     <description>
-      <![CDATA[
+        <![CDATA[
         IdeaMouseGestures plugin provides easy way to assign Idea's menu items to mouse gestures.
         Mouse gestures are recognized when the right mouse button is pressed.
         <br>Plugin contains open source (LGPL) components and documentation to add mouse gestures
@@ -12,7 +12,7 @@
       ]]>
     </description>
     <change-notes>
-      <![CDATA[
+        <![CDATA[
         1.10 - Mouse gesture actions are triggered programmatically;<br>
              - Minor visual improvements.<br>
         1.9  - New editor for mouse gestures action. Now allows to select any action from Idea's main menu;<br>
@@ -35,6 +35,7 @@
       ]]>
     </change-notes>
     <version>1.10</version>
+    <depends>com.intellij.modules.lang</depends>
     <vendor email="idea@smardec.com" url="http://www.smardec.com">Smardec</vendor>
     <idea-version since-build="93.13"/>
     <application-components>
