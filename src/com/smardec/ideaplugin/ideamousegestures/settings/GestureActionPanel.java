@@ -224,9 +224,9 @@ public class GestureActionPanel {
 		}
 	}
 
-	public void apply() {
+	public GestureAction[] getActions() {
 		GestureAction[] gestureActions = this.gestureActions.toArray(new GestureAction[this.gestureActions.size()]);
-		mouseGesturesPlugin.getSettings().setGestureActions(gestureActions);
+		return gestureActions;
 	}
 
 	public void dispose() {

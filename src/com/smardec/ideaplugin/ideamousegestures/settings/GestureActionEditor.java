@@ -88,12 +88,10 @@ public class GestureActionEditor implements IActionNodeSelectionListener {
 		gestureTextField.setFont(gestureTextField.getFont().deriveFont(Font.BOLD, 15f));
 		gestureTextField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
-				GestureActionEditor.this.mouseGesturesPlugin.setEditingGestureInSettings(true);
 				GestureActionEditor.this.mouseGesturesPlugin.getMouseGestures().addMouseGesturesListener(editMouseGesturesListener);
 			}
 
 			public void focusLost(FocusEvent e) {
-				GestureActionEditor.this.mouseGesturesPlugin.setEditingGestureInSettings(false);
 				GestureActionEditor.this.mouseGesturesPlugin.getMouseGestures().removeMouseGesturesListener(editMouseGesturesListener);
 			}
 		});

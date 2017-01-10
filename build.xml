@@ -21,6 +21,7 @@
 			<pathelement location="${IdeaMouseGestures.lib}/openapi.jar"/>
 			<pathelement location="${IdeaMouseGestures.lib}/jdom.jar"/>
 			<pathelement location="${IdeaMouseGestures.lib}/annotations.jar"/>
+            <pathelement location="${IdeaMouseGestures.lib}/util.jar"/>
 			<pathelement location="${IdeaMouseGestures.build.classes}"/>
 		</path>
 	</target>

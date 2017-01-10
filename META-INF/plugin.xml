@@ -43,7 +43,10 @@
     <application-components>
         <component>
             <implementation-class>com.smardec.ideaplugin.ideamousegestures.MouseGesturesPlugin</implementation-class>
-            <interface-class>com.smardec.ideaplugin.ideamousegestures.MouseGesturesPlugin</interface-class>
         </component>
     </application-components>
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <applicationConfigurable instance="com.smardec.ideaplugin.ideamousegestures.MouseGesturesConfiguable" id="MouseGesture" displayName="MouseGesture"  />
+    </extensions>
 </idea-plugin>

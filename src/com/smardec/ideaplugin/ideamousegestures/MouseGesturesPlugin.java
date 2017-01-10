@@ -21,43 +21,41 @@ package com.smardec.ideaplugin.ideamousegestures;
 
 import com.intellij.openapi.actionSystem.DataProvider;
 import com.intellij.openapi.components.ApplicationComponent;
-import com.intellij.openapi.options.Configurable;
-import com.intellij.openapi.options.ConfigurationException;
+import com.intellij.openapi.components.PersistentStateComponent;
+import com.intellij.openapi.components.State;
+import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.util.InvalidDataException;
-import com.intellij.openapi.util.JDOMExternalizable;
 import com.intellij.openapi.util.WriteExternalException;
 import com.intellij.openapi.wm.StatusBar;
 import com.smardec.helper.IdeaHelper;
 import com.smardec.ideaplugin.ideamousegestures.lang.LangUtils;
 import com.smardec.ideaplugin.ideamousegestures.settings.Settings;
-import com.smardec.ideaplugin.ideamousegestures.settings.SettingsPanel;
 import com.smardec.mousegestures.MouseGestures;
 import com.smardec.mousegestures.MouseGesturesListener;
 import com.smardec.mousegestures.Movements;
 import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.AWTEventListener;
 import java.awt.event.MouseEvent;
 
-public class MouseGesturesPlugin implements ApplicationComponent, JDOMExternalizable, Configurable {
-	private static final String PLUGIN_IMAGE = "com/smardec/ideaplugin/ideamousegestures/img/mouse.png";
+@State(name = "MouseGestures", storages = { @Storage(id = "MouseGestures", file = "$APP_CONFIG$/mouseGestures.xml") })
+public class MouseGesturesPlugin implements ApplicationComponent
+		, PersistentStateComponent<Settings>
+{
 	private Settings theSettings;
-	private SettingsPanel theSettingsPanel;
 	private MouseGestures theMouseGestures;
 	private MouseGesturesListener theMouseGesturesListener;
 	private AWTEventListener thAwtEventListener;
-	private boolean isEditingGestureInSettings;
 
 	public MouseGesturesPlugin() {
 		theSettings = new Settings();
-		theSettingsPanel = null;
 		theMouseGestures = createMouseGestures();
 		theMouseGesturesListener = new MouseGesturesListener() {
 			public void gestureMovementRecognized(String currentGesture) {
-				if (isEditingGestureInSettings) return;
 				StatusBar statusBar = IdeaHelper.getCurrentStatusBar();
 				if (statusBar != null) {
 					GestureAction gestureAction = theSettings.getAction(currentGesture);
@@ -73,7 +71,6 @@ public class MouseGesturesPlugin implements ApplicationComponent, JDOMExternaliz
 			}
 
 			public void processGesture(String gesture) {
-				if (isEditingGestureInSettings) return;
 				try {
 					GestureAction gestureAction = theSettings.getAction(gesture);
 					if (gestureAction != null) {
@@ -88,7 +85,6 @@ public class MouseGesturesPlugin implements ApplicationComponent, JDOMExternaliz
 				}
 			}
 		};
-		isEditingGestureInSettings = false;
 	}
 
 	@NotNull
@@ -109,55 +105,6 @@ public class MouseGesturesPlugin implements ApplicationComponent, JDOMExternaliz
 		theMouseGestures.stop();
 	}
 
-	public String getDisplayName() {
-		return LangUtils.get(LangUtils.PLUGIN_DISPLAY_NAME);
-	}
-
-	public Icon getIcon() {
-		return new ImageIcon(getClass().getClassLoader().getResource(PLUGIN_IMAGE));
-	}
-
-	public String getHelpTopic() {
-		return null;
-	}
-
-	public void readExternal(Element element) throws InvalidDataException {
-		theSettings.readExternal(element);
-	}
-
-	public void writeExternal(Element element) throws WriteExternalException {
-		theSettings.writeExternal(element);
-	}
-
-	public JComponent createComponent() {
-		if (theSettingsPanel == null) {
-			theSettingsPanel = new SettingsPanel(this);
-		}
-		return theSettingsPanel.getPanel();
-	}
-
-	public boolean isModified() {
-		if (theSettingsPanel == null) return false;
-		return theSettingsPanel.isModified();
-	}
-
-	public void apply() throws ConfigurationException {
-		if (theSettingsPanel == null) return;
-		theSettingsPanel.apply();
-		syncMouseGesturesWithSettings();
-	}
-
-	public void reset() {
-		if (theSettingsPanel == null) return;
-		theSettingsPanel.reset();
-	}
-
-	public void disposeUIResources() {
-		if (theSettingsPanel == null) return;
-		theSettingsPanel.dispose();
-		theSettingsPanel = null;
-	}
-
 	public MouseGestures getMouseGestures() {
 		return theMouseGestures;
 	}
@@ -166,12 +113,9 @@ public class MouseGesturesPlugin implements ApplicationComponent, JDOMExternaliz
 		return theSettings;
 	}
 
-	public boolean isEditingGestureInSettings() {
-		return isEditingGestureInSettings;
-	}
-
-	public void setEditingGestureInSettings(boolean editingGestureInSettings) {
-		this.isEditingGestureInSettings = editingGestureInSettings;
+	public void setSettings(Settings settings) {
+		this.theSettings = settings;
+		syncMouseGesturesWithSettings();
 	}
 
 	private void initMouseGestures() {
@@ -189,7 +133,7 @@ public class MouseGesturesPlugin implements ApplicationComponent, JDOMExternaliz
 		Toolkit.getDefaultToolkit().addAWTEventListener(thAwtEventListener, 48L);
 	}
 
-	private void syncMouseGesturesWithSettings() {
+	public void syncMouseGesturesWithSettings() {
 		theMouseGestures.setGridSize(theSettings.getGridSize());
 		theMouseGestures.setDiagonalEnabled(theSettings.isDiagonalEnabled());
 		theMouseGestures.setMouseTrailEnabled(theSettings.isMouseTrailEnabled());
@@ -204,5 +148,14 @@ public class MouseGesturesPlugin implements ApplicationComponent, JDOMExternaliz
 			e.printStackTrace();
 			return new MouseGestures();
 		}
+	}
+
+	@Nullable @Override public Settings getState()
+	{
+		return theSettings;
+	}
+
+	public void loadState(Settings state) {
+		theSettings = state;
 	}
 }
