@@ -59,14 +59,15 @@ public class SettingsPanel {
 	}
 
 	public void apply() throws ConfigurationException {
-		gestureActionPanel.apply();
 		Settings settings = mouseGesturesPlugin.getSettings();
+		settings.setGestureActions(gestureActionPanel.getActions());
 		settings.setGridSize(((Number)gridSizeSpinner.getValue()).intValue());
 		settings.setBlockRightClickOnEditor(blockRightClickOnEditorCheckBox.isSelected());
 		settings.setDiagonalEnabled(diagonalEnabledCheckBox.isSelected());
 		settings.setMouseTrailEnabled(mouseTrailEnabledCheckBox.isSelected());
 		settings.setMouseTrailSize(((Number)mouseTrailSizeSpinner.getValue()).intValue());
 		settings.setMouseTrailColor(mouseTrailColorButton.getBackground());
+		mouseGesturesPlugin.setSettings(settings);
 	}
 
 	public void dispose() {
